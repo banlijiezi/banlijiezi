@@ -70,9 +70,12 @@ function fillAuto() {
 }
 form.endDate.addEventListener('change', fillAuto);
 
-/* ========== 五、车主模式：预填手机号、车牌号且只读 ========== */
+/* ========== 五、车主模式：预填注册信息且只读 ========== */
 if (isUser() && !editId) {
     const s = getSession();
+    // 将注册的姓名、手机号、车牌号自动带入月卡表单
+    form.ownerName.value = s.username;
+    form.ownerName.disabled = true;     // 车主不可改姓名
     form.phone.value = s.phone;
     form.phone.disabled = true;        // 车主不可改手机号
     if (s.plateNo) {
@@ -145,9 +148,10 @@ document.getElementById('btnReset').addEventListener('click', () => {
     form.remainDay.value = '';
     form.statusText.value = '';
     document.getElementById('billingHint').textContent = '';
-    // 车主模式重新预填
+    // 车主模式重新预填注册信息
     if (isUser() && !editId) {
         const s = getSession();
+        form.ownerName.value = s.username;
         form.phone.value = s.phone;
         if (s.plateNo) form.plateNo.value = s.plateNo;
     }
