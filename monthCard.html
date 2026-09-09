@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>园区后台管理系统-月卡管理</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- 顶部头部：由 common.js 注入 -->
+    <header class="header" id="header"></header>
+
+    <div class="wrapper">
+        <!-- 侧边导航栏：由 common.js 注入 -->
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <!-- 右侧主内容区 -->
+        <main class="main-content">
+            <h2 id="pageTitle">月卡管理<span id="size"> ——园区车辆月卡信息维护</span></h2>
+            <hr>
+
+            <!-- 查询筛选区域 -->
+            <div class="card-box search-card">
+                <label>车主姓名/手机号：</label>
+                <input type="text" id="searchKeyword" placeholder="请输入姓名或手机号">
+                <label>车牌号：</label>
+                <input type="text" id="searchPlate" placeholder="请输入车牌号">
+                <label>状态：</label>
+                <select id="searchStatus">
+                    <option value="">全部</option>
+                    <option value="0">可用</option>
+                    <option value="1">已过期</option>
+                </select>
+                <button type="button" class="button btn-blue" id="btnSearch">🔍 查询</button>
+                <button type="button" class="button btn-gray" id="btnReset">↻ 重置</button>
+                <!-- 操作按钮：由 JS 根据权限动态渲染 -->
+                <span id="actionButtons"></span>
+            </div>
+
+            <!-- 月卡数据表格 + 分页 -->
+            <div class="card-box">
+                <div class="table-wrap">
+                    <table class="data-table" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th class="col-check"><input type="checkbox" id="checkAll"></th>
+                                <th>序号</th>
+                                <th>车主姓名</th>
+                                <th>手机号</th>
+                                <th>车牌号</th>
+                                <th>月卡类型</th>
+                                <th>开始日期</th>
+                                <th>结束日期</th>
+                                <th>缴费金额(元)</th>
+                                <th>剩余天数</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody"><!-- 数据行由 JS 生成 --></tbody>
+                    </table>
+                </div>
+
+                <!-- 分页栏 -->
+                <div class="pager">
+                    <span>共 <span id="totalCount">0</span> 条</span>
+                    <label>每页</label>
+                    <select id="pageSize">
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                    </select>
+                    <label>条</label>
+                    <button type="button" class="button btn-sm btn-gray" id="btnPrev">上一页</button>
+                    <span id="pageInfo">第 1 / 1 页</span>
+                    <button type="button" class="button btn-sm btn-gray" id="btnNext">下一页</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ========== 月卡弹窗（查看 / 编辑 / 续费 复用） ========== -->
+    <div class="modal-mask" id="modal">
+        <div class="modal-dialog">
+            <div class="modal-title" id="modalTitle">月卡信息</div>
+            <form id="modalForm">
+                <div class="card-box form-card" style="margin-bottom:16px;">
+                    <h3>车辆信息</h3>
+                    <div class="form-grid">
+                        <div class="form-item"><label>车主姓名</label><input type="text" name="ownerName"></div>
+                        <div class="form-item"><label>手机号</label><input type="text" name="phone" maxlength="11"></div>
+                        <div class="form-item"><label>车牌号</label><input type="text" name="plateNo"></div>
+                        <div class="form-item"><label>月卡类型</label>
+                            <select name="cardType">
+                                <option value="月卡">月卡</option>
+                                <option value="季卡">季卡</option>
+                                <option value="年卡">年卡</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-box form-card" style="margin-bottom:0;">
+                    <h3>缴费信息</h3>
+                    <div class="form-grid">
+                        <div class="form-item"><label>开始日期</label><input type="date" name="startDate"></div>
+                        <div class="form-item"><label>结束日期</label><input type="date" name="endDate"></div>
+                        <div class="form-item"><label>缴费金额(元)</label><input type="number" name="payAmount" step="0.01" min="0"></div>
+                        <div class="form-item"><label>支付方式</label>
+                            <select name="payType">
+                                <option value="微信支付">微信支付</option>
+                                <option value="支付宝">支付宝</option>
+                                <option value="现金">现金</option>
+                            </select>
+                        </div>
+                        <div class="form-item"><label>剩余有效天数</label><input type="number" name="remainDay" min="0"></div>
+                        <div class="form-item"><label>月卡状态</label><input type="text" name="statusText" disabled></div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="button" id="btnModalSave">✔ 保存</button>
+                <button type="button" class="button btn-gray" id="btnModalClose">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/common.js"></script>
+    <script src="./js/monthCard.js"></script>
+</body>
+</html>

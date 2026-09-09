@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>园区后台管理系统-首页</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- 顶部头部：由 common.js 的 renderHeader() 注入登录状态 -->
+    <header class="header" id="header"></header>
+
+    <div class="wrapper">
+        <!-- 侧边导航栏：由 common.js 的 renderSidebar() 注入 -->
+        <aside class="sidebar" id="sidebar"></aside>
+
+        <!-- 右侧主内容区 -->
+        <main class="main-content">
+            <!-- 用户门户（仅车主登录后显示，由 JS 控制显隐） -->
+            <div class="user-portal hide" id="userPortal">
+                <div class="portal-card">
+                    <div class="portal-title">📌 我的月卡</div>
+                    <div id="userCardList"><!-- JS 动态渲染 --></div>
+                </div>
+            </div>
+
+            <!-- 园区运营数据总览（车主登录时由 JS 隐藏） -->
+            <div id="statSection">
+            <h2>工作台<span id="size"> ——园区运营数据总览</span></h2>
+            <hr>
+
+            <!-- 4 个统计卡片（内容由 renderHomeStat() 动态渲染） -->
+            <div class="stat-row">
+                <div class="stat-card">
+                    <span class="icon">💰</span>
+                    <div>
+                        <div class="num" id="statMoney">--</div>
+                        <div class="label">年度累计收费(元)</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="icon">🏢</span>
+                    <div>
+                        <div class="num" id="statCompany">--</div>
+                        <div class="label">入驻企业总数(家)</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="icon">🎫</span>
+                    <div>
+                        <div class="num" id="statCard">--</div>
+                        <div class="label">月卡车辆总数(张)</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="icon">🅿️</span>
+                    <div>
+                        <div class="num" id="statPole">--</div>
+                        <div class="label">一体杆总数(台)</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- 快捷入口模块 -->
+            <h2>快捷入口</h2>
+            <hr>
+            <div class="quick-row" id="quickRow"><!-- JS 根据权限渲染 --></div>
+
+            <!-- 预留扩展占位容器 -->
+            <h2>扩展功能</h2>
+            <hr>
+            <div class="placeholder">扩展功能区域（预留位置，后续开发）</div>
+        </main>
+    </div>
+
+    <script src="./js/common.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+</html>
